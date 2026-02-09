@@ -41,6 +41,7 @@ export class GrpcModule {
 					provide: GrpcClientFactory,
 					useFactory: (urls: GrpcClientUrls) => {
 						const factory = new GrpcClientFactory()
+
 						for (const [token, url] of Object.entries(urls)) {
 							const config = GRPC_CLIENTS[token as keyof typeof GRPC_CLIENTS]
 							if (!config)
@@ -56,9 +57,9 @@ export class GrpcModule {
 							})
 
 							factory.register(token, client)
-
-							return factory
 						}
+
+						return factory
 					},
 					inject: [GRPC_MODULE_OPTIONS]
 				},
